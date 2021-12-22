@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Public variables")]
     public float MovementSpeed = 10;
     public float GravityMultiplier = 1;
     public float JumpHeight = 3;
 
-    CharacterController controller;
-
     public Transform GroundCheck;
     public LayerMask GroundLayer;
 
+    [Header("Private variables")]
     float gravityConst = -9.81f;
     public bool isGrounded;
     public bool CanDoubleJump;
     public Vector3 velocity;
+
+    CharacterController controller;
 
     void Start()
     {
