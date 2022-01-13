@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         movementDirection = transform.right * x + transform.forward * z;
+
         if(Input.GetKey(KeyCode.LeftShift) && isGrounded)
         {
             Run();
