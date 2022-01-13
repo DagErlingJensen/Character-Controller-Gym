@@ -6,10 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Public variables")]
     public float MovementSpeed = 10;
-    public float RunSpeed = 20;
+    public float RunSpeed = 15;
     public float CrouchSpeed = 1;
     public float GravityMultiplier = 1;
-    public float JumpHeight = 3;
+    public float JumpHeight = 2;
+    public float LongJumpHeight = 3.5f;
+    public float LongJumpTime = 0.08f;
 
     public Transform GroundCheck;
     public LayerMask GroundLayer;
@@ -18,8 +20,12 @@ public class PlayerMovement : MonoBehaviour
     float gravityConst = -9.81f;
     public bool isGrounded;
     public bool canDoubleJump;
+    public bool jumped;
     public Vector3 velocity;
     public Vector3 movementDirection;
+    float longJumpTimer;
+
+    float jumpYPos;
 
     CharacterController controller;
 
@@ -35,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2;
+
+            if(jumped)
+                jumped = false;
+
             if (!canDoubleJump)
                 canDoubleJump = true;
         }
@@ -47,8 +57,28 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         movementDirection = transform.right * x + transform.forward * z;
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Jump();
+        }
 
-        if(Input.GetKey(KeyCode.LeftShift) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump)
+        {
+            Jump();
+            canDoubleJump = false;
+        }
+
+        if(Input.GetKey(KeyCode.Space) && jumped)
+        {
+            longJumpTimer += Time.deltaTime;
+            if(longJumpTimer > LongJumpTime)
+            {
+                LongJump();
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
         {
             Run();
         }
@@ -63,23 +93,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            transform.localScale = new Vector3(1, 0.6f, 1);
+            controller.height *= 0.5f;
+            Camera.main.transform.localPosition = new Vector3(0, 0.75f, 0.5f);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            transform.localScale = new Vector3(1, 1f, 1);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump)
-        {
-            Jump();
-            canDoubleJump = false;
+            controller.height *= 2;
+            Camera.main.transform.localPosition = new Vector3(0, 1.25f, 0.5f);
         }
 
         //velocity.y += gravityConst * GravityMultiplier * Time.deltaTime;
@@ -105,6 +126,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        longJumpTimer = 0;
+        jumped = true;
+        jumpYPos = transform.position.y;
         velocity.y = Mathf.Sqrt(JumpHeight * -2 * gravityConst * GravityMultiplier);
+    }
+
+    void LongJump()
+    {
+        jumped = false;
+        longJumpTimer = 0;
+        velocity.y = 0;
+        float heightDiff = transform.position.y - jumpYPos;
+        velocity.y = Mathf.Sqrt((LongJumpHeight - heightDiff) * -2 * gravityConst * GravityMultiplier);
     }
 }
