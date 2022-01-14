@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     float gravityConst = -9.81f;
     public bool isGrounded;
     public bool canDoubleJump;
-    public bool jumped;
+    public bool isJumping;
     public Vector3 velocity;
     public Vector3 movementDirection;
     float longJumpTimer;
@@ -42,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2;
 
-            if(jumped)
-                jumped = false;
+            if(isJumping)
+                isJumping = false;
 
             if (!canDoubleJump)
                 canDoubleJump = true;
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             canDoubleJump = false;
         }
 
-        if(Input.GetKey(KeyCode.Space) && jumped)
+        if(Input.GetKey(KeyCode.Space) && isJumping)
         {
             longJumpTimer += Time.deltaTime;
             if(longJumpTimer > LongJumpTime)
@@ -78,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
-        {
-            Run();
-        }
-        else if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
         {
             Crouch();
+        }
+        else if(Input.GetKey(KeyCode.CapsLock) && isGrounded)
+        {
+            Run();
         }
         else
         {
@@ -127,14 +127,14 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         longJumpTimer = 0;
-        jumped = true;
+        isJumping = true;
         jumpYPos = transform.position.y;
         velocity.y = Mathf.Sqrt(JumpHeight * -2 * gravityConst * GravityMultiplier);
     }
 
     void LongJump()
     {
-        jumped = false;
+        isJumping = false;
         longJumpTimer = 0;
         velocity.y = 0;
         float heightDiff = transform.position.y - jumpYPos;
