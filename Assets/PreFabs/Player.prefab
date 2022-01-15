@@ -32,7 +32,7 @@ Transform:
   - {fileID: 6314019920312365105}
   - {fileID: 7249452246430234762}
   m_Father: {fileID: 4065301722216339307}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4065301721959847956
 Camera:
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4065301722066542240}
   - component: {fileID: 4065301722066542241}
   m_Layer: 6
-  m_Name: Capsule
+  m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.5, z: 1.2}
   m_Children: []
   m_Father: {fileID: 4065301722216339307}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4065301722066542240
 MeshFilter:
@@ -198,9 +198,9 @@ Transform:
   m_LocalPosition: {x: 24, y: 5.5, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4065301721959847959}
   - {fileID: 4065301722066542270}
   - {fileID: 4303911163226543119}
+  - {fileID: 4065301721959847959}
   - {fileID: 2780963345306722272}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -235,11 +235,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fef2ea480f4eb4bac3ccdf8dcfa9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpButton: 0
+  RunButton: 0
+  CrouchButton: 0
   MovementSpeed: 10
   RunSpeed: 20
   CrouchSpeed: 5
   GravityMultiplier: 4
   JumpHeight: 2
+  LongJumpHeight: 3.5
   LongJumpTime: 0.075
   GroundCheck: {fileID: 4303911163226543119}
   GroundLayer:
@@ -247,7 +251,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   canDoubleJump: 0
-  jumped: 0
+  isJumping: 0
   velocity: {x: 0, y: 0, z: 0}
   movementDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &4065301722216339306
@@ -793,5 +797,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4065301722216339307}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

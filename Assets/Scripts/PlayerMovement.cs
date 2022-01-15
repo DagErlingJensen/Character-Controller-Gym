@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player inputs")]
+    public KeyCode JumpButton;
+    public KeyCode RunButton;
+    public KeyCode CrouchButton;
+
     [Header("Public variables")]
     public float MovementSpeed = 10;
     public float RunSpeed = 15;
@@ -12,19 +17,17 @@ public class PlayerMovement : MonoBehaviour
     public float JumpHeight = 2;
     public float LongJumpHeight = 3.5f;
     public float LongJumpTime = 0.08f;
-
     public Transform GroundCheck;
     public LayerMask GroundLayer;
 
     [Header("Private variables")]
-    float gravityConst = -9.81f;
     public bool isGrounded;
     public bool canDoubleJump;
     public bool isJumping;
     public Vector3 velocity;
     public Vector3 movementDirection;
+    float gravityConst = -9.81f;
     float longJumpTimer;
-
     float jumpYPos;
 
     CharacterController controller;
@@ -52,24 +55,19 @@ public class PlayerMovement : MonoBehaviour
             velocity.y += gravityConst * GravityMultiplier * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        movementDirection = transform.right * x + transform.forward * z;
         
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(JumpButton) && isGrounded)
         {
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump)
+        if (Input.GetKeyDown(JumpButton) && !isGrounded && canDoubleJump)
         {
             Jump();
             canDoubleJump = false;
         }
 
-        if(Input.GetKey(KeyCode.Space) && isJumping)
+        if(Input.GetKey(JumpButton) && isJumping)
         {
             longJumpTimer += Time.deltaTime;
             if(longJumpTimer > LongJumpTime)
@@ -78,11 +76,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        movementDirection = transform.right * x + transform.forward * z;
+
+        if (Input.GetKey(CrouchButton) && isGrounded)
         {
             Crouch();
         }
-        else if(Input.GetKey(KeyCode.CapsLock) && isGrounded)
+        else if(Input.GetKey(RunButton) && isGrounded)
         {
             Run();
         }
@@ -91,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
             Move();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(CrouchButton))
         {
             controller.height *= 0.5f;
             Camera.main.transform.localPosition = new Vector3(0, 0.75f, 0.5f);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(CrouchButton))
         {
             controller.height *= 2;
             Camera.main.transform.localPosition = new Vector3(0, 1.25f, 0.5f);
