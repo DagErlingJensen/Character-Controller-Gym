@@ -98,12 +98,14 @@ public class PlayerMovement : MonoBehaviour
         {
             controller.height *= 0.5f;
             Camera.main.transform.localPosition = new Vector3(0, 0.75f, 0.5f);
+            GroundCheck.transform.localPosition *= 0.5f;
         }
 
         if (Input.GetKeyUp(CrouchButton))
         {
             controller.height *= 2;
             Camera.main.transform.localPosition = new Vector3(0, 1.25f, 0.5f);
+            GroundCheck.transform.localPosition *= 2;
         }
 
         //velocity.y += gravityConst * GravityMultiplier * Time.deltaTime;
