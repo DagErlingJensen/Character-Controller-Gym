@@ -7,6 +7,7 @@ public class Target : MonoBehaviour
 {
     public void Hit()
     {
+        Debug.Log(name + "hit");
         Invoke("OnHit", 0);
     }
 
