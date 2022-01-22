@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3108885740791084138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5982434411728525034}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5982434411728525034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3108885740791084138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6314019920312365105}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4065301721959847954
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,8 +208,9 @@ GameObject:
   - component: {fileID: 4065301722216339307}
   - component: {fileID: 4065301722216339304}
   - component: {fileID: 4065301722216339309}
-  - component: {fileID: 4065301722216339306}
   - component: {fileID: 9047980688602285620}
+  - component: {fileID: 2465724256742641989}
+  - component: {fileID: 4065301722216339306}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -254,6 +285,37 @@ MonoBehaviour:
   isJumping: 0
   velocity: {x: 0, y: 0, z: 0}
   movementDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &9047980688602285620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4065301722216339305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7516a9b79891b8459bd577d1892c50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: 100
+  HitForce: 0
+  MuzzleFlash: {fileID: 6022600616914025860}
+  HitEffect: {fileID: 2179671078375488136, guid: 1ab67baeaeeb9214f8c500af01c63c77, type: 3}
+--- !u!114 &2465724256742641989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4065301722216339305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a2f1dd0988f444fbfcd718a536af4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 7347388111695747449, guid: 17ed8ce253d690448a4aac16c4e53c69, type: 3}
+  Muzzle: {fileID: 5982434411728525034}
+  ProjectileForce: 1000
 --- !u!114 &4065301722216339306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,21 +329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseSensitivity: 1000
---- !u!114 &9047980688602285620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4065301722216339305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7516a9b79891b8459bd577d1892c50c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 100
-  MuzzleFlash: {fileID: 6022600616914025860}
-  HitEffect: {fileID: 2179671078375488136, guid: 1ab67baeaeeb9214f8c500af01c63c77, type: 3}
 --- !u!1 &4848586800622532433
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +539,7 @@ Transform:
   m_Children:
   - {fileID: 5862101072763689830}
   m_Father: {fileID: 6314019920312365105}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!198 &6022600616914025860
 ParticleSystem:
@@ -10426,6 +10473,7 @@ Transform:
   m_LocalPosition: {x: 0.5, y: -0.25, z: 0.5}
   m_LocalScale: {x: 0.10000002, y: 0.2, z: 1}
   m_Children:
+  - {fileID: 5982434411728525034}
   - {fileID: 5862438783253335242}
   m_Father: {fileID: 4065301721959847959}
   m_RootOrder: 0
