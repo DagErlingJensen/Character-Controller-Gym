@@ -6,7 +6,7 @@ public class PlayerProjectileGun : MonoBehaviour
 {
     public GameObject Projectile;
     public Transform Muzzle;
-    public float ProjectileForce;
+    public float ProjectileForce = 100;
 
     void Update()
     {
